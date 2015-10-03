@@ -1,0 +1,14 @@
+first:
+    second: &my_anchor
+    # a comment
+    - one
+    - two
+    - three
+    alpha: [ 'x', 'y' ]
+    ultra: |-
+        multiline text
+        without trailing or leading
+        whitespace
+
+another:
+    copy: *my_anchor
