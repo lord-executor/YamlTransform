@@ -1,9 +1,11 @@
 
-require 'yamltransform/noderef'
+require 'yamltransform/mappingref'
 
 module YamlTransform
 
 	class Transform
+
+		attr_accessor :document
 
 		def initialize(document)
 			@document = document
@@ -24,11 +26,19 @@ module YamlTransform
 				end
 			end
 
-			return NodeRef.new(parent, i)
+			return MappingRef.new(parent, i)
+		end
+
+		def grep(key)
+		end
+
+		def find(key, value)
 		end
 
 		def delete(key)
 		end
+
+		
 
 	end
 
