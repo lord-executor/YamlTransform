@@ -24,6 +24,20 @@ class TestMappingRef < MiniTest::Unit::TestCase
 		assert_equal(["one", "two", "three"], obj["first"]["modified"])
 	end
 
+	def test_mapping_value_change()
+		visitor = YamlTransform::Getter.new("node.0.start")
+		visitor.accept(@data)
+
+		ref = visitor.result.first
+		assert_equal("start", ref.key)
+		assert_equal("0", ref.value)
+
+		ref.value = "12"
+		obj = @data.to_ruby()
+
+		assert_equal(12, obj["node"][0]["start"])
+	end
+
 	def teardown()
 	end
 
