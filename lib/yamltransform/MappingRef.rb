@@ -3,6 +3,8 @@ module YamlTransform
 
 	class MappingRef
 
+		attr_accessor :parent, :keyIndex, :valueIndex
+
 		def initialize(parent, keyIndex)
 			@parent = parent
 			@keyIndex = keyIndex
@@ -18,9 +20,11 @@ module YamlTransform
 		end
 
 		def append(fragment)
+			@parent.children[@valueIndex].children.push(*fragment.children)
 		end
 
 		def prepend(fragment)
+			@parent.children[@valueIndex].children.unshift(*fragment.children)
 		end
 
 	end

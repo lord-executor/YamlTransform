@@ -1,5 +1,6 @@
 
 require 'yamltransform/mappingref'
+require 'psych'
 
 module YamlTransform
 
@@ -17,9 +18,7 @@ module YamlTransform
 			i = 0
 
 			key.split('.').each() do |segment|
-				puts("processing #{segment}")
-				i = node.children.index() { |item| item.value == segment }
-				puts("index #{i}")
+				i = node.children.index() { |item| item.is_a?(Psych::Nodes::Scalar) && item.value == segment }
 				if (i != nil)
 					parent = node
 					node = node.children[i + 1]
@@ -38,7 +37,20 @@ module YamlTransform
 		def delete(key)
 		end
 
-		
+		def from_yaml(string)
+			return Psych.parse_stream(string).children.first.root()
+		end
+
+		def to_string()
+			stream = Psych::Nodes::Stream.new()
+			stream.children << @document
+
+			return stream.to_yaml(nil, { :indentation => 4, :canonical => false })
+		end
+
+		def to_ruby()
+			return @document.to_ruby()
+		end
 
 	end
 

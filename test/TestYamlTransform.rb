@@ -25,6 +25,24 @@ class TestYamlTransform < MiniTest::Unit::TestCase
 		refute_nil(obj["modified"])
 	end
 
+	def test_append()
+		@transform.get("first").append(@transform.from_yaml("new_key: \"new value\""))
+
+		refPrev = @transform.get("first.ultra")
+		refNew = @transform.get("first.new_key")
+		
+		assert_equal(refPrev.keyIndex + 2, refNew.keyIndex)
+	end
+
+	def test_prepend()
+		@transform.get("first").prepend(@transform.from_yaml("prepended: []"))
+
+		refNext = @transform.get("first.second")
+		refNew = @transform.get("first.prepended")
+		
+		assert_equal(refNext.keyIndex - 2, refNew.keyIndex)
+	end
+
 	def teardown()
 	end
 
