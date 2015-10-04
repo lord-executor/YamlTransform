@@ -1,0 +1,22 @@
+first:
+    second: &my_anchor
+    - one
+    - two
+    - three
+    alpha: ['x', 'y']
+    scalar:
+        list:
+        - eggs
+        - salad
+        notes: watch the budget!
+    ultra: |-
+        multiline text
+        without trailing or leading
+        whitespace
+node:
+-   start: 0
+    end: 42
+-   start: 43
+    end: 100
+another:
+    copy: *my_anchor

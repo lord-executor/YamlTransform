@@ -24,15 +24,21 @@ class PrependMigration < YamlTransform::Transform
 
 end
 
+class ReplaceMigration < YamlTransform::Transform
+
+	def execute()
+
+		get("first.scalar").replace(from_obj({ "list" => ["eggs", "salad"], "notes" => "watch the budget!" }))
+
+	end
+
+end
+
 class TestYamlTransform < MiniTest::Unit::TestCase
 
 	def setup()
 		@data = Psych.parse_file('./test/sample-files/sample-01.yaml')
 		@transform = YamlTransform::Transform.new(@data)
-	end
-
-	def test_transform_getter()
-		
 	end
 
 	def test_append_full_yaml_output()
@@ -45,6 +51,12 @@ class TestYamlTransform < MiniTest::Unit::TestCase
 		m = PrependMigration.new(@data)
 		m.execute()
 		assert_equal(File.read('./test/sample-files/sample-01-prepend.yaml'), m.to_string())
+	end
+
+	def test_replace_full_yaml_output()
+		m = ReplaceMigration.new(@data)
+		m.execute()
+		assert_equal(File.read('./test/sample-files/sample-01-replace.yaml'), m.to_string())
 	end
 
 	def teardown()

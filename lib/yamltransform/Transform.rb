@@ -36,6 +36,10 @@ module YamlTransform
 			return Psych.parse_stream(string).children.first.root()
 		end
 
+		def from_obj(obj)
+			return Psych.parse_stream(Psych.dump(obj)).children.first.root()
+		end
+
 		def to_string()
 			stream = Psych::Nodes::Stream.new()
 			stream.children << @document

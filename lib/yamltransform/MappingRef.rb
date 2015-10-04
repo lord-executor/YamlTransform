@@ -35,7 +35,8 @@ module YamlTransform
 			@parent.children[@valueIndex].children.unshift(*fragment.children)
 		end
 
-		def replace()
+		def replace(fragment)
+			@parent.children[@valueIndex] = fragment
 		end
 
 		def copy_to()
