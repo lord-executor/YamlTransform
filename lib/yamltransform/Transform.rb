@@ -14,19 +14,10 @@ module YamlTransform
 		end
 
 		def get(key)
-			parent = @document.root()
-			node = parent
-			i = 0
+			getter = Getter.new(key)
+			getter.accept(@document.root())
 
-			key.split('.').each() do |segment|
-				i = node.children.index() { |item| item.is_a?(Psych::Nodes::Scalar) && item.value == segment }
-				if (i != nil)
-					parent = node
-					node = node.children[i + 1]
-				end
-			end
-
-			return MappingRef.new(parent, i)
+			return getter.result.first
 		end
 
 		def grep(key)
