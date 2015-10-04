@@ -19,6 +19,14 @@ module YamlTransform
 			@parent.children[@keyIndex].value = name
 		end
 
+		def value()
+			return @parent.children[@valueIndex].value
+		end
+
+		def value=(scalar)
+			@parent.children[@valueIndex].value = scalar
+		end
+
 		def append(fragment)
 			@parent.children[@valueIndex].children.push(*fragment.children)
 		end

@@ -1,5 +1,6 @@
 
 require 'yamltransform/mappingref'
+require 'yamltransform/getter'
 require 'psych'
 
 module YamlTransform

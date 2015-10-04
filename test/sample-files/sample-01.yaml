@@ -5,6 +5,7 @@ first:
     - two
     - three
     alpha: [ 'x', 'y' ]
+    scalar: "some value"
     ultra: |-
         multiline text
         without trailing or leading
