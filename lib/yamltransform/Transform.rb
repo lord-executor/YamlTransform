@@ -13,6 +13,9 @@ module YamlTransform
 			@document = document
 		end
 
+		def execute()
+		end
+
 		def get(key)
 			getter = Getter.new(key)
 			getter.accept(@document.root())
